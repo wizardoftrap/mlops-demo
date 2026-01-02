@@ -5,7 +5,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
-def train():
+def train_model():
     mlflow.set_experiment("iris-classification")
     
     X, y = load_iris(return_X_y=True)
@@ -31,8 +31,5 @@ def train():
         
         mlflow.sklearn.log_model(model, 'iris_model')
         
-        print(f"Accuracy: {accuracy}")
-        print(f"Model logged with run_id: {mlflow.active_run().info.run_id}")
-
-if __name__ == "__main__":
-    train()
+        print(f"✓ Model trained - Accuracy: {accuracy:.4f}")
+        print(f"✓ Run ID: {mlflow.active_run().info.run_id}")
