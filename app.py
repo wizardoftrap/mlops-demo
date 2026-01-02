@@ -134,5 +134,10 @@ if __name__ == '__main__':
     # Wait for MLflow to start
     time.sleep(3)
     
-    print("\nStarting Flask prediction server...\n")
+    # Train model on startup with latest code
+    print("Training model with latest code...")
+    train_model()
+    
+    print("\n✓ MLflow Server on port 5000")
+    print("✓ Prediction API on port 8000")
     app.run(host='0.0.0.0', port=8000, debug=False)
