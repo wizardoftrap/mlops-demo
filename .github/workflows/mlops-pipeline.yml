@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  train:
+  train_and_test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -15,28 +15,14 @@ jobs:
         with:
           python-version: '3.10'
       - run: pip install mlflow scikit-learn numpy pandas
-      - run: python main.py
+      - run: python train_test.py
       - uses: actions/upload-artifact@v4
         with:
           name: mlruns
           path: mlruns/
 
-  test:
-    needs: train
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-      - run: pip install mlflow scikit-learn numpy pandas
-      - uses: actions/download-artifact@v4
-        with:
-          name: mlruns
-      - run: python predict.py
-
-  build-and-push:
-    needs: test
+  build_and_push:
+    needs: train_and_test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
